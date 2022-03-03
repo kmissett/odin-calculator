@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap');
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font: inherit;
+}
+
+:root {
+    --font-family: "Inconsolata", monospace;
+    --font-size: clamp(1.25rem, 1rem + 5vw, 1.5rem);
+    --font-size-sm: calc(0.8 * var(--font-size));
+    --font-size-xs: calc(0.6 * var(--font-size));
+    --font-size-lg: calc(1.25 * var(--font-size));
+    --font-size-xl: calc(1.5 * var(--font-size));
+
+    --font-weight: 400;
+    --font-weight-light: 200;
+    --font-weight-bold: 700;
+
+    --color-bg: hsl(0,0%,2%);
+    --color-calc-body: hsl(0,0%,25%);
+    --color-keys: hsl(0,0%,100%);
+    
+    --color-accent: hsl(120,50%,10%);
+    --color-accent-lightest:  hsl(120,60%,60%);
+    --color-accent-lighter:  hsl(120,60%,40%);
+    --color-accent-light:  hsl(120,60%,20%);
+    --color-accent-dark: hsl(120,40%,2%);
+    --color-accent-darker: hsl(120,40%,1%);
+
+}
+
+body {
+    background-color: var(--color-bg);
+    color: var(--color-keys);
+    font-family: var(--font-family);
+    font-size: var(--font-size-xl);
+    height: 100vh;
+    display: grid;
+    place-content: center;
+}
+
+.calculator {
+    width: min-content;
+    background-color: var(--color-calc-body);
+    display: flex;
+    flex-direction: column;
+    gap: 0.25em;
+    padding: 0.25em;
+    border-radius: 0.25em;
+}
+
+.display {
+    grid-column: 1/-1;
+    background-color: var(--color-accent-darker);
+    text-align: right;
+    padding: 0.5em;
+    border-radius: 0.25em;
+    word-wrap: break-word;
+    word-break: break-all;
+    justify-self: flex-end;
+}
+
+.input-stack {
+    min-height: 1em;
+    font-size: var(--font-size);
+    color: var(--color-accent-lighter);
+}
+
+.result {
+    min-height: 1em;
+    margin-top: 0.5em;
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-accent-lightest);
+    position: relative;
+    vertical-align: baseline;
+}
+
+.result::after {
+    content: " ";
+    position: absolute;
+    bottom: -3px;
+    right: 0;
+    width: 1ch;
+    height: 100%;
+    border-bottom: 2px solid currentColor;
+    animation: blink 500ms linear infinite alternate;
+}
+
+@keyframes blink {
+    to {opacity: 0}
+}
+
+.keys {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.25em;
+}
+
+.key {
+    width: 2em;
+    aspect-ratio: 1/1;
+    background-color: var(--color-accent-dark);
+    color: var(--color-keys);
+    border: none;
+    border-radius: 0.25em;
+    cursor: pointer;
+}
+
+.key:hover, .key:focus {
+    background-color: var(--color-accent)
+}
+.key:active {
+    background-color: var(--color-accent-light);
+}
+
+.number {
+    border-radius: 50%;
+}
+
+
+.add, .equals {
+    grid-row: span 2;
+    align-self: stretch;
+}
