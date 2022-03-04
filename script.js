@@ -75,7 +75,6 @@ class Calculator {
             default:
                 break
         }
-        console.log(result)
         this.current = +result.toPrecision(this.precision)
         this.previous = ""
         this.operation = undefined
@@ -130,6 +129,5 @@ equalsButton.addEventListener("click", () => {
 })
 
 window.addEventListener("keyup", (e) => {
-    console.log(e.key)
     calculator.handleKeyPress(e)
 })
