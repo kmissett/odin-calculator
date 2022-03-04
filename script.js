@@ -1,9 +1,9 @@
 class Calculator {
     constructor(previousDisplay,currentDisplay) {
+        this.precision = 12
         this.previousDisplay = previousDisplay
         this.currentDisplay = currentDisplay
         this.clear()
-        this.precision = 12
     }
     clear() {
         this.previous = ""
@@ -31,13 +31,28 @@ class Calculator {
         }
     }
 
+    handleKeyPress(key) {
+        const numberKeyValues = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."]
+        const operationKeyValues = ["+", "-", "*", "×", "/", "÷"]
+        const deleteKeyValues = ["Backspace", "Delete"]
+        const equalsKeyValues = ["=", "Enter"]
+
+        if(numberKeyValues.includes(key.key)) this.appendNumber(key.key)
+        else if(operationKeyValues.includes(key.key)) this.setOperation(key.key)
+        else if(deleteKeyValues.includes(key.key)) this.delete()
+        else if(equalsKeyValues.includes(key.key)) this.compute()
+        else if(key.key === "Escape") this.clear()
+        else return
+        this.update()
+    }
+
     compute() {
         let result
         const prevNumber = parseFloat(this.previous)
         const currNumber = parseFloat(this.current)
         
         if(isNaN(prevNumber) || isNaN(currNumber)) return
-        if(this.operation === "÷" && currNumber === 0) {
+        if((this.operation === "÷" || this.operation === "/") && currNumber === 0) {
             alert("Can't divide by 0")
             return
         }
@@ -50,17 +65,19 @@ class Calculator {
                 result = prevNumber - currNumber
                 break
             case("×"):
+            case("*"):
                 result = prevNumber * currNumber
                 break
             case("÷"):
+            case("/"):
                 result = prevNumber / currNumber
                 break
             default:
                 break
         }
-
+        console.log(result)
+        this.current = +result.toPrecision(this.precision)
         this.previous = ""
-        this.current = result.toPrecision(this.precision)
         this.operation = undefined
 
     }
@@ -112,3 +129,7 @@ equalsButton.addEventListener("click", () => {
     calculator.update()
 })
 
+window.addEventListener("keyup", (e) => {
+    console.log(e.key)
+    calculator.handleKeyPress(e)
+})
