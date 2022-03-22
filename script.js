@@ -31,13 +31,23 @@ class Calculator {
         }
     }
 
+    toggleNegative() {
+        console.log(this.current[0])
+        if (this.current === "0") {
+            this.current = "-"
+            return 
+        }
+        if (this.current === "-") {
+            this.current = "0"
+            return
+        }
+        return this.current = parseFloat(this.current * -1).toString()
+    }
+
     handleKeyPress(key) {
-        const numberKeyValues = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."]
-        const operationKeyValues = ["+", "-", "*", "×", "/", "÷"]
-        const deleteKeyValues = ["Backspace", "Delete"]
-        const equalsKeyValues = ["=", "Enter"]
 
         if(numberKeyValues.includes(key.key)) this.appendNumber(key.key)
+        else if (plusMinusKey.includes(key.key)) this.toggleNegative()
         else if(operationKeyValues.includes(key.key)) this.setOperation(key.key)
         else if(deleteKeyValues.includes(key.key)) this.delete()
         else if(equalsKeyValues.includes(key.key)) this.compute()
@@ -93,6 +103,17 @@ const operationKeys = keys.filter(key=> key.classList.contains("operation"))
 const clearButton = document.querySelector(".clear")
 const deleteButton = document.querySelector(".delete")
 const equalsButton = document.querySelector(".equals")
+const plusMinusButton = document.querySelector(".negative")
+
+
+const numberKeyValues = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."]
+const operationKeyValues = ["+", "-", "*", "×", "/", "÷"]
+const deleteKeyValues = ["Backspace", "Delete"]
+const equalsKeyValues = ["=", "Enter"]
+const plusMinusKey = ["n"]
+const sqrtKey = ["s"]
+
+
 
 const previousDisplay = document.querySelector(".input-stack")
 const currentDisplay = document.querySelector(".result")
@@ -125,6 +146,11 @@ operationKeys.forEach(key => {
 
 equalsButton.addEventListener("click", () => {
     calculator.compute()
+    calculator.update()
+})
+
+plusMinusButton.addEventListener("click", () => {
+    calculator.toggleNegative()
     calculator.update()
 })
 

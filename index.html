@@ -15,7 +15,11 @@
             <div class="result" data-current>0</div>
         </div>
         <div class="keys">
+            <button class="key delete" data-delete>DEL</button>
+            <button class="key open-parentheses" data-open-parentheses>(</button>
+            <button class="key close-parentheses" data-close-parentheses>)</button>
             <button class="key clear" data-clear>C</button>
+            <button class="key operation sqrt" data-operation>&#8730;</button>
             <button class="key operation divide" data-operation>&divide;</button>
             <button class="key operation multiply" data-operation>&times;</button>
             <button class="key operation subtract" data-operation>&minus;</button>    
@@ -30,10 +34,13 @@
             <button class="key number" data-number>2</button>
             <button class="key number" data-number>3</button>
             <button class="key equals" data-equals>=</button>
-            <button class="key delete" data-delete>DEL</button>
+            <button class="key negative" data-negative>&plusmn;</button>
             <button class="key number" data-number>0</button>
-            <button class="key number" data-number>.</button>
+            <button class="key number decimal" data-number>.</button>
         </div>
     </div>
+    <p class="info">
+        "n" toggles positive/negative.<br />"s": square root of the current number.
+    </p>
 </body>
 </html>
